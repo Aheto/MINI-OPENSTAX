@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Mini OpenStax Math: Number systems: Natural, whole, integers — Class 7 Mathematics Chapter 0" />
+  <meta name="theme-color" content="#0056b3" />
+  <title>Mini OpenStax Math — Number Systems & Integers</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* === MINI OPENSTAX MATH DESIGN TOKENS === */
+    :root {
+      --blue: #0056b3;
+      --blue-dark: #004494;
+      --blue-light: #e0f0ff;
+      --gold: #cead00;
+      --red: #ce1126;
+      --light: #f9f9f9;
+      --dark: #2d2d2d;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --focus-ring: 0 0 0 3px rgb(0 86 179 / 0.35);
+      --radius-sm: 0.375rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --space-xs: clamp(0.5rem, 0.8vw, 0.75rem);
+      --space-sm: clamp(0.75rem, 1.2vw, 1rem);
+      --space-md: clamp(1rem, 2vw, 1.5rem);
+      --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+      --space-xl: clamp(2rem, 5vw, 4rem);
+      --max-w: 800px;
+      --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* === RESET & BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: var(--surface);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .skip-link {
+      position: absolute; top: -40px; left: 0; background: var(--blue); color: white;
+      padding: var(--space-xs) var(--space-sm); z-index: 1000; border-radius: var(--radius-sm);
+      transition: top var(--transition); font-weight: 500; text-decoration: none;
+    }
+    .skip-link:focus { top: var(--space-xs); outline: 2px solid white; outline-offset: 2px; }
+
+    /* === CONTAINER === */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: var(--space-md); padding-top: calc(var(--space-md) + 72px); flex: 1; }
+
+    /* === PROFESSIONAL HEADER === */
+    .header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--surface) 95%, transparent); backdrop-filter: blur(12px) saturate(180%); border-bottom: 1px solid var(--border); }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: var(--space-sm) var(--space-md); max-width: var(--max-w); margin: 0 auto; width: 100%; }
+    .nav__brand { font-size: 1.25rem; font-weight: 700; color: var(--blue); display: flex; align-items: center; gap: var(--space-xs); text-decoration: none; }
+    .nav__brand svg { width: 1.5rem; height: 1.5rem; stroke: var(--blue); flex-shrink: 0; }
+    .nav__list { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); padding: var(--space-sm); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); gap: var(--space-xs); }
+    .nav__list.is-open { display: flex; }
+    .nav__link { padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm); font-weight: 500; color: var(--dark); transition: background var(--transition), color var(--transition); text-decoration: none; }
+    .nav__link:hover, .nav__link:focus-visible { background: var(--light); color: var(--blue); outline: none; }
+    .nav__link[aria-current="page"] { color: var(--blue); font-weight: 700; background: var(--light); }
+    .nav__toggle { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: var(--radius-sm); background: none; border: none; cursor: pointer; }
+    .nav__toggle:hover, .nav__toggle:focus-visible { background: var(--light); outline: none; }
+    .nav__toggle svg { width: 1.5rem; height: 1.5rem; stroke: var(--dark); }
+    @media (min-width: 768px) {
+      .nav__toggle { display: none; }
+      .nav__list { position: static; flex-direction: row; box-shadow: none; border: none; padding: 0; background: transparent; display: flex; align-items: center; gap: var(--space-sm); }
+    }
+
+    /* === MATH APP HEADER === */
+    .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-xs); padding-bottom: var(--space-sm); border-bottom: 1px solid var(--border); }
+    .app-header h1 { font-size: clamp(1.25rem, 3vw, 1.5rem); margin: 0; color: var(--blue); }
+    .lo-tags { font-size: 0.85rem; color: #64748b; font-family: var(--font-mono); }
+    .role-badge { background: var(--light); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; color: var(--blue); }
+    .settings-btn { background: none; border: none; font-size: 1.2rem; color: var(--blue); cursor: pointer; padding: 0.25rem; border-radius: var(--radius-sm); transition: background var(--transition); }
+    .settings-btn:hover, .settings-btn:focus-visible { background: var(--light); outline: none; }
+
+    /* === TABS === */
+    .tabs { display: flex; gap: var(--space-sm); margin: var(--space-md) 0; flex-wrap: wrap; justify-content: center; }
+    .tab-btn { padding: 0.5rem 1rem; background: var(--light); border: none; border-radius: var(--radius-md); cursor: pointer; font-weight: 600; transition: background var(--transition), color var(--transition); }
+    .tab-btn:hover, .tab-btn:focus-visible { background: var(--blue); color: white; }
+    .tab-btn.active { background: var(--blue); color: white; }
+    .tab-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+    /* === MODAL === */
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; display: none; }
+    .modal-content { background: white; padding: var(--space-lg); border-radius: var(--radius-lg); width: 90%; max-width: 400px; box-shadow: var(--shadow-lg); position: relative; }
+    .modal h3 { margin-top: 0; color: var(--blue); }
+    .modal-close { position: absolute; top: var(--space-sm); right: var(--space-sm); background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #999; }
+    .modal-close:hover { color: var(--red); }
+    .input-group { margin-bottom: var(--space-md); }
+    label { display: block; margin-bottom: var(--space-xs); font-weight: 600; }
+    input[type="text"], input[type="checkbox"] { width: 100%; padding: 0.6rem; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 1rem; }
+    input[type="checkbox"] { width: auto; margin-right: 0.5rem; }
+    .btn { background: var(--blue); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: background var(--transition), transform var(--transition); }
+    .btn:hover, .btn:focus-visible { background: var(--blue-dark); transform: translateY(-2px); }
+    .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .btn-whatsapp { background: #25D366; }
+    .btn-whatsapp:hover { background: #128C7E; }
+
+    /* === LESSON CONTENT === */
+    .section { margin-bottom: var(--space-lg); padding-bottom: var(--space-md); border-bottom: 1px solid var(--border); }
+    .word-list { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-sm) 0; }
+    .word-item { background: var(--light); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-family: monospace; font-size: 0.95rem; }
+    table { width: 100%; border-collapse: collapse; margin: var(--space-sm) 0; }
+    th, td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; }
+    th { background-color: var(--blue-light); }
+    blockquote { margin: var(--space-md) 0; padding-left: var(--space-md); border-left: 3px solid var(--blue); color: #555; font-style: italic; }
+    .checkpoint { background: #f8f9fa; padding: var(--space-md); border-left: 4px solid var(--gold); margin: var(--space-lg) 0; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+
+    /* === QUIZ === */
+    .quiz { margin-top: var(--space-lg); }
+    .question { margin-bottom: var(--space-md); padding: var(--space-sm); background: var(--light); border-radius: var(--radius-md); }
+    .options { margin-left: var(--space-sm); }
+    .option { margin: 0.4rem 0; }
+    .option label { font-weight: normal; cursor: pointer; }
+
+    /* === DASHBOARD & REPORTS === */
+    .card { background: white; padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-lg); box-shadow: var(--shadow-md); }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: var(--space-sm); margin: var(--space-sm) 0; }
+    .stat-item { text-align: center; padding: var(--space-sm); background: #f8f9fa; border-radius: var(--radius-md); }
+    .stat-value { font-size: 1.5rem; font-weight: bold; color: var(--blue); }
+    .lesson-item { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #eee; }
+    .lesson-item:last-child { border-bottom: none; }
+    .mastery-indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+    .mastery-yes { background: var(--blue); }
+    .mastery-partial { background: var(--gold); }
+    
+    .report-card { background: #f8f9fa; border-left: 4px solid var(--blue); padding: var(--space-md); margin-bottom: var(--space-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; }
+    .report-header { display: flex; justify-content: space-between; margin-bottom: var(--space-xs); font-weight: bold; }
+    .report-meta { font-size: 0.85rem; color: #666; margin-bottom: var(--space-xs); }
+    .report-actions { margin-top: var(--space-sm); display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+    .report-actions button { padding: 0.3rem 0.6rem; font-size: 0.85rem; }
+    .report-detail { margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px dashed #ddd; font-size: 0.9rem; white-space: pre-wrap; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; font-family: var(--font-mono); }
+    .report-detail.show { max-height: 500px; }
+
+    .feedback { margin-top: var(--space-lg); padding: var(--space-md); background: var(--light); border-left: 4px solid var(--blue); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .feedback details { margin-top: var(--space-md); padding: var(--space-sm); border-radius: var(--radius-md); }
+    .feedback details[open] { background: #e0f0ff; }
+    .feedback details summary { cursor: pointer; font-weight: 600; }
+
+    .chapter-nav { margin-top: var(--space-xl); text-align: center; padding-top: var(--space-md); border-top: 1px solid var(--border); }
+    .chapter-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-xs); margin-bottom: var(--space-md); }
+    .chapter-btn { padding: 0.4rem 0.8rem; background: var(--light); color: var(--dark); text-decoration: none; border-radius: var(--radius-sm); font-size: 0.9rem; transition: background var(--transition); }
+    .chapter-btn.active, .chapter-btn:hover { background: var(--blue); color: white; }
+
+    /* === FOOTER === */
+    .footer { background: var(--dark); color: #cbd5e1; padding-block: var(--space-xl); margin-top: auto; }
+    .footer__grid { display: grid; gap: var(--space-lg); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-md); }
+    .footer__title { color: white; margin-bottom: var(--space-sm); font-size: 1.1rem; }
+    .footer__link { color: #94a3b8; transition: color var(--transition); display: inline-block; margin-bottom: var(--space-xs); text-decoration: none; }
+    .footer__link:hover { color: white; text-decoration: underline; }
+    .footer__bottom { text-align: center; margin-top: var(--space-lg); padding-top: var(--space-sm); border-top: 1px solid #334155; max-width: var(--max-w); margin-inline: auto; padding-inline: var(--space-md); }
+
+    /* === PRINT & ACCESSIBILITY === */
+    @media print {
+      .header, .footer, .nav__toggle, .btn:not(.btn-whatsapp), .tabs, .settings-btn, .chapter-nav { display: none !important; }
+      body { background: white; color: black; }
+      .container { padding-top: 0; }
+      #print-report, #print-report * { visibility: visible; }
+      #print-report { position: absolute; left: 0; top: 0; width: 100%; font-family: monospace; white-space: pre-wrap; padding: 20px; box-sizing: border-box; font-size: 12pt; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --surface: #111827; --light: #1e293b; --border: #334155; --dark: #f1f5f9; --blue-light: #0c4a8a; }
+      .card, .modal-content, .report-card, .question { background: #1e293b; }
+      .feedback details[open] { background: #064e3b; }
+      input[type="text"] { background: #1e293b; color: #f1f5f9; }
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="header" role="banner">
+    <div class="nav" style="padding:0; max-width:100%;">
+      <a href="../../index.html" class="nav__brand" aria-label="Mini OpenStax Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Mini OpenStax
+      </a>
+      <button class="nav__toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <nav id="main-nav" class="nav__list" role="navigation">
+        <a href="../../index.html" class="nav__link">Home</a>
+        <a href="index.html" class="nav__link">Class 7</a>
+        <a href="math-index.html" class="nav__link" aria-current="page">Mathematics</a>
+        <a href="math-dashboard.html" class="nav__link">Math Dashboard</a>
+        <a href="../../contact.html" class="nav__link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" role="main">
+    <div class="app-header">
+      <div>
+        <h1 id="page-title">Number systems: Natural, whole, integers</h1>
+        <div class="lo-tags">B7/JHS1.M.1.1.1</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;align-items:center;">
+        <div class="role-badge" id="current-role">Student View</div>
+        <button class="settings-btn" id="open-settings" title="Change name or role" aria-label="Open settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="lesson" role="tab" aria-selected="true">Lesson</button>
+      <button class="tab-btn" data-tab="dashboard" role="tab" aria-selected="false">Dashboard</button>
+      <button class="tab-btn" data-tab="analytics" id="analytics-tab" role="tab" aria-selected="false" style="display:none;">Analytics</button>
+    </div>
+
+    <section id="tab-lesson" class="tab-content" role="tabpanel">
+      <article class="section">
+        <h2>🎯 What You'll Learn</h2>
+        <ul id="objectives">
+          <li>Differentiate between natural numbers, whole numbers, and integers.</li>
+          <li>Represent numbers on a number line and identify positive/negative positions.</li>
+          <li>Apply place value concepts to large and small numbers.</li>
+          <li>Solve real-world problems involving temperature, debt, and elevation.</li>
+        </ul>
+      </article>
+
+      <article class="section">
+        <h2>🔤 Important Words</h2>
+        <p>Key terms for this lesson:</p>
+        <div class="word-list">
+          <span class="word-item">Integer</span>
+          <span class="word-item">Whole Number</span>
+          <span class="word-item">Natural Number</span>
+          <span class="word-item">Number Line</span>
+          <span class="word-item">Absolute Value</span>
+          <span class="word-item">Place Value</span>
+          <span class="word-item">Negative</span>
+          <span class="word-item">Positive</span>
+        </div>
+      </article>
+
+      <article class="section" id="lesson-content">
+        <h2>📘 Understanding Number Sets</h2>
+        <p>In mathematics, we group numbers to make counting, measuring, and calculating easier. Let's explore the three fundamental sets used in everyday life.</p>
+        
+        <h3>🔍 Natural Numbers (N)</h3>
+        <p>These are the counting numbers. We use them when we count objects: apples, students, or goals scored in a match.</p>
+        <p><strong>Set:</strong> {1, 2, 3, 4, 5, ...}</p>
+        
+        <h3>🔢 Whole Numbers (W)</h3>
+        <p>Whole numbers include all natural numbers <strong>plus zero</strong>. Zero represents "none" or the starting point.</p>
+        <p><strong>Set:</strong> {0, 1, 2, 3, 4, ...}</p>
+        
+        <h3>🌡️ Integers (Z)</h3>
+        <p>Integers expand whole numbers to include <strong>negative numbers</strong>. These are essential for representing temperatures below freezing, money owed (debt), or depth below sea level.</p>
+        <p><strong>Set:</strong> {..., -3, -2, -1, 0, 1, 2, 3, ...}</p>
+        
+        <table>
+          <thead>
+            <tr><th>Set</th><th>Includes 0?</th><th>Includes Negatives?</th><th>Example Use Case</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Natural</strong></td><td>No</td><td>No</td><td>Counting books</td></tr>
+            <tr><td><strong>Whole</strong></td><td>Yes</td><td>No</td><td>Pages in a book</td></tr>
+            <tr><td><strong>Integers</strong></td><td>Yes</td><td>Yes</td><td>Temperature (-5°C)</td></tr>
+          </tbody>
+        </table>
+        
+        <blockquote>
+          💭 <strong>Real-World Thought</strong>: If your town is at sea level (0), a mountain is +200m high. A submarine is -50m deep. Which set of numbers best describes these positions?
+        </blockquote>
+      </article>
+
+      <article class="section">
+        <h2>✅ Check Your Understanding</h2>
+        <div class="checkpoint">
+          <ol>
+            <li>List three items in your home you would count using Natural Numbers.</li>
+            <li>Why is 0 important in the Whole Number set?</li>
+            <li>If you owe your friend 20 cedis, what integer represents your balance?</li>
+            <li>Draw a number line and mark: -4, 0, +3.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="section">
+        <h2>📝 Quick Quiz (20 Questions)</h2>
+        <form id="quiz-form"></form>
+        <button type="button" class="btn" id="submit-quiz">Check Answers</button>
+      </article>
+
+      <nav class="chapter-nav" id="chapter-navigation">
+        <div class="chapter-tabs" id="chapter-tabs"></div>
+        <div>
+          <button id="prev-btn" class="btn" style="margin-right: 0.5rem; display: none;" aria-label="Previous math lesson">← Previous</button>
+          <button id="next-btn" class="btn" style="display: none;" aria-label="Next math lesson">Next →</button>
+        </div>
+      </nav>
+      <div id="feedback" aria-live="polite"></div>
+    </section>
+
+    <section id="tab-dashboard" class="tab-content" role="tabpanel" style="display:none;">
+      <article class="card">
+        <h2>Hello, <span id="dashboard-name">Learner</span>!</h2>
+        <div class="stat-grid">
+          <div class="stat-item"><div class="stat-value" id="stat-mastered">0</div><div class="stat-label">Mastered</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-total">1</div><div class="stat-label">Total Lessons</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-percent">0%</div><div class="stat-label">Progress</div></div>
+        </div>
+      </article>
+      <article class="card">
+        <h2><i class="fas fa-history"></i> Recent Activity</h2>
+        <div id="recent-lessons">No activity yet.</div>
+      </article>
+      <article class="card">
+        <h2><i class="fas fa-file-alt"></i> Math Quiz Reports</h2>
+        <div id="reports-list"><p>Loading reports...</p></div>
+        <button class="btn btn-whatsapp" id="btn-send-all" style="margin-top:1rem;">Send All Reports via WhatsApp</button>
+      </article>
+    </section>
+
+    <section id="tab-analytics" class="tab-content" role="tabpanel" style="display:none;">
+      <article class="card">
+        <h2>📊 Class Analytics</h2>
+        <div id="analytics-content">Loading...</div>
+      </article>
+    </section>
+  </main>
+
+  <div id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <button class="modal-close" id="close-settings" aria-label="Close settings">&times;</button>
+      <h3 id="modal-title">👤 Account Settings</h3>
+      <div class="input-group">
+        <label for="edit-name">Your Name</label>
+        <input type="text" id="edit-name" maxlength="30" placeholder="e.g., Ama" autocomplete="name">
+      </div>
+      <div class="input-group">
+        <label><input type="checkbox" id="edit-role"> Switch to Instructor Mode</label>
+      </div>
+      <button class="btn" id="save-settings">Save Changes</button>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer__grid">
+      <div>
+        <h4 class="footer__title">Mini OpenStax Math</h4>
+        <p style="max-width: 30ch; opacity: 0.9;">Making mathematics accessible and engaging for JHS learners across Ghana.</p>
+      </div>
+      <div>
+        <h4 class="footer__title">Quick Links</h4>
+        <nav aria-label="Footer navigation">
+          <a href="../../index.html" class="footer__link">Home</a><br>
+          <a href="index.html" class="footer__link">Class 7</a><br>
+          <a href="math-index.html" class="footer__link">Mathematics</a><br>
+          <a href="../../contact.html" class="footer__link">Contact Support</a>
+        </nav>
+      </div>
+      <div>
+        <h4 class="footer__title">Contact</h4>
+        <address style="font-style: normal; opacity: 0.9;">
+          <a href="tel:+233257320201" class="footer__link">+233 25 732 0201</a><br>
+          <a href="mailto:learn@miniopenstax.edu.gh" class="footer__link">learn@miniopenstax.edu.gh</a><br>
+          Accra, Ghana
+        </address>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; <span id="year"></span> Mini OpenStax. Content aligned with NaCCA curriculum. <a href="../../privacy.html" class="footer__link">Privacy</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+      const WHATSAPP_NUMBER = "233257320201";
+      window.startTime = Date.now();
+
+      // === AUTO-DETECT CHAPTER NUMBER (Handles mathChapter-X or chapter-X) ===
+      const path = window.location.pathname;
+      const match = path.match(/(?:math)?chapter-(\d+)\.html/i);
+      const currentChapter = match ? parseInt(match[1], 10) : 0;
+      const MAX_CHAPTERS = 300;
+      const PREFIX = 'math_'; // Consistent with math-index & math-dashboard
+
+      function getChapterUrl(n) { return `mathChapter-${n}.html`; }
+
+      let userName = localStorage.getItem('student_name') || 'Learner';
+      let userRole = localStorage.getItem('user_role') || 'student';
+      localStorage.setItem('student_name', userName);
+      localStorage.setItem('user_role', userRole);
+      document.getElementById('dashboard-name').textContent = userName;
+      document.getElementById('current-role').textContent = userRole === 'instructor' ? 'Instructor View' : 'Student View';
+      const analyticsTab = document.getElementById('analytics-tab');
+      analyticsTab.style.display = userRole === 'instructor' ? 'block' : 'none';
+
+      // === UTILS ===
+      function createSeededRNG(seed) {
+        let state = Math.abs((seed * 9301 + 49297) % 233280);
+        return () => { state = (state * 9301 + 49297) % 233280; return state / 233280; };
+      }
+      function shuffleWithSeed(array, seed) {
+        const rng = createSeededRNG(seed);
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(rng() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      // === NAV TOGGLE ===
+      const navToggle = document.querySelector('.nav__toggle');
+      const navList = document.querySelector('.nav__list');
+      if (navToggle && navList) {
+        navToggle.addEventListener('click', () => {
+          const isOpen = navList.classList.toggle('is-open');
+          navToggle.setAttribute('aria-expanded', isOpen);
+          navToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+        });
+        document.addEventListener('click', (e) => {
+          if (navList.classList.contains('is-open') && !navList.contains(e.target) && !navToggle.contains(e.target)) {
+            navList.classList.remove('is-open'); navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && navList.classList.contains('is-open')) {
+            navList.classList.remove('is-open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.focus();
+          }
+        });
+      }
+
+      // === MODAL ===
+      const modal = document.getElementById('settings-modal');
+      document.getElementById('open-settings').onclick = () => {
+        document.getElementById('edit-name').value = userName;
+        document.getElementById('edit-role').checked = (userRole === 'instructor');
+        modal.style.display = 'flex';
+      };
+      document.getElementById('close-settings').onclick = () => modal.style.display = 'none';
+      document.getElementById('save-settings').onclick = () => {
+        const newName = document.getElementById('edit-name').value.trim();
+        if (!newName) { alert("Please enter a name."); return; }
+        const newRole = document.getElementById('edit-role').checked ? 'instructor' : 'student';
+        userName = newName; userRole = newRole;
+        localStorage.setItem('student_name', userName);
+        localStorage.setItem('user_role', userRole);
+        document.getElementById('dashboard-name').textContent = userName;
+        document.getElementById('current-role').textContent = newRole === 'instructor' ? 'Instructor View' : 'Student View';
+        analyticsTab.style.display = newRole === 'instructor' ? 'block' : 'none';
+        modal.style.display = 'none';
+        if (document.querySelector('.tab-btn.active')?.dataset.tab === 'dashboard') { updateDashboard(); loadReports(); }
+      };
+      window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+
+      // === MATH QUIZ DATA (JHS 1 Aligned) ===
+      const assessmentItems = [
+        {id:"1",prompt:"Which set includes 0 and all positive counting numbers?",options:[{id:"a",text:"Natural Numbers",is_correct:false},{id:"b",text:"Whole Numbers",is_correct:true},{id:"c",text:"Integers",is_correct:false},{id:"d",text:"Prime Numbers",is_correct:false}]},
+        {id:"2",prompt:"Which of these is an example of an integer?",options:[{id:"a",text:"3.5",is_correct:false},{id:"b",text:"-5",is_correct:true},{id:"c",text:"1/2",is_correct:false},{id:"d",text:"√2",is_correct:false}]},
+        {id:"3",prompt:"What is the place value of 7 in the number 4,732?",options:[{id:"a",text:"Tens",is_correct:false},{id:"b",text:"Hundreds",is_correct:true},{id:"c",text:"Thousands",is_correct:false},{id:"d",text:"Ones",is_correct:false}]},
+        {id:"4",prompt:"Which number is greater than -3?",options:[{id:"a",text:"-5",is_correct:false},{id:"b",text:"-4",is_correct:false},{id:"c",text:"0",is_correct:true},{id:"d",text:"-3",is_correct:false}]},
+        {id:"5",prompt:"If the temperature drops from 2°C to -4°C, how much did it fall?",options:[{id:"a",text:"2°C",is_correct:false},{id:"b",text:"4°C",is_correct:false},{id:"c",text:"6°C",is_correct:true},{id:"d",text:"8°C",is_correct:false}]},
+        {id:"6",prompt:"Which of the following represents zero correctly on a number line?",options:[{id:"a",text:"Left of -1",is_correct:false},{id:"b",text:"Right of +1",is_correct:false},{id:"c",text:"Between -1 and +1",is_correct:true},{id:"d",text:"Below the line",is_correct:false}]},
+        {id:"7",prompt:"The absolute value of -8 is:",options:[{id:"a",text:"-8",is_correct:false},{id:"b",text:"0",is_correct:false},{id:"c",text:"8",is_correct:true},{id:"d",text:"16",is_correct:false}]},
+        {id:"8",prompt:"Natural numbers start from:",options:[{id:"a",text:"0",is_correct:false},{id:"b",text:"1",is_correct:true},{id:"c",text:"-1",is_correct:false},{id:"d",text:"10",is_correct:false}]},
+        {id:"9",prompt:"Which operation always results in a larger negative number?",options:[{id:"a",text:"Subtracting a positive",is_correct:true},{id:"b",text:"Adding a positive",is_correct:false},{id:"c",text:"Multiplying by 0",is_correct:false},{id:"d",text:"Dividing by 1",is_correct:false}]},
+        {id:"10",prompt:"Arrange from smallest to largest: -2, 3, -5, 0",options:[{id:"a",text:"-5, -2, 0, 3",is_correct:true},{id:"b",text:"3, 0, -2, -5",is_correct:false},{id:"c",text:"-2, -5, 0, 3",is_correct:false},{id:"d",text:"0, -2, 3, -5",is_correct:false}]},
+        {id:"11",prompt:"What is -4 + 9?",options:[{id:"a",text:"-5",is_correct:false},{id:"b",text:"5",is_correct:true},{id:"c",text:"-13",is_correct:false},{id:"d",text:"13",is_correct:false}]},
+        {id:"12",prompt:"Which of these is NOT a whole number?",options:[{id:"a",text:"0",is_correct:false},{id:"b",text:"15",is_correct:false},{id:"c",text:"-1",is_correct:true},{id:"d",text:"100",is_correct:false}]},
+        {id:"13",prompt:"A diver goes down 10 meters. What integer represents his position?",options:[{id:"a",text:"+10",is_correct:false},{id:"b",text:"-10",is_correct:true},{id:"c",text:"10m above",is_correct:false},{id:"d",text:"0",is_correct:false}]},
+        {id:"14",prompt:"Round 4.87 to 1 decimal place.",options:[{id:"a",text:"4.8",is_correct:false},{id:"b",text:"4.9",is_correct:true},{id:"c",text:"5.0",is_correct:false},{id:"d",text:"4.87",is_correct:false}]},
+        {id:"15",prompt:"Which statement is TRUE about integers?",options:[{id:"a",text:"They cannot be negative",is_correct:false},{id:"b",text:"They include fractions",is_correct:false},{id:"c",text:"They have no decimals",is_correct:true},{id:"d",text:"They start from 1",is_correct:false}]},
+        {id:"16",prompt:"Calculate: 6 - (-3)",options:[{id:"a",text:"3",is_correct:false},{id:"b",text:"-3",is_correct:false},{id:"c",text:"9",is_correct:true},{id:"d",text:"-9",is_correct:false}]},
+        {id:"17",prompt:"Which digit is in the tens place of 529?",options:[{id:"a",text:"5",is_correct:false},{id:"b",text:"2",is_correct:true},{id:"c",text:"9",is_correct:false},{id:"d",text:"0",is_correct:false}]},
+        {id:"18",prompt:"If x = -2, what is x + 4?",options:[{id:"a",text:"-6",is_correct:false},{id:"b",text:"-2",is_correct:false},{id:"c",text:"2",is_correct:true},{id:"d",text:"6",is_correct:false}]},
+        {id:"19",prompt:"Which set represents all integers between -1 and 3?",options:[{id:"a",text:"{0, 1, 2}",is_correct:true},{id:"b",text:"{1, 2, 3}",is_correct:false},{id:"c",text:"{-1, 0, 1, 2, 3}",is_correct:false},{id:"d",text:"{0, 3}",is_correct:false}]},
+        {id:"20",prompt:"The opposite of a negative number is always:",options:[{id:"a",text:"Negative",is_correct:false},{id:"b",text:"Positive",is_correct:true},{id:"c",text:"Zero",is_correct:false},{id:"d",text:"A fraction",is_correct:false}]}
+      ];
+
+      // === RENDER QUIZ ===
+      function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        if(!form) return;
+        window.quizCorrectMap = {};
+        const baseSeed = currentChapter * 1000000 + (Date.now() % 1000000);
+        form.innerHTML = assessmentItems.map(q => {
+          const seed = baseSeed + parseInt(q.id, 10);
+          const shuffledOpts = shuffleWithSeed([...q.options], seed);
+          const correct = q.options.find(o => o.is_correct);
+          window.quizCorrectMap[q.id] = correct.id;
+          const optHtml = shuffledOpts.map((opt, idx) => {
+            const letter = String.fromCharCode(65 + idx);
+            return `<div class="option"><label><input type="radio" name="q${q.id}" value="${opt.id}" required> ${letter}. ${opt.text}</label></div>`;
+          }).join('');
+          return `<div class="question"><strong>${q.id}. ${q.prompt}</strong><div class="options">${optHtml}</div></div>`;
+        }).join('');
+      }
+
+      // === SUBMIT QUIZ ===
+      document.getElementById('submit-quiz').addEventListener('click', () => {
+        const form = document.getElementById('quiz-form');
+        const answers = [];
+        for (let i = 1; i <= assessmentItems.length; i++) {
+          const el = form.querySelector(`input[name="q${i}"]:checked`);
+          answers.push(el ? el.value : null);
+        }
+        if (answers.includes(null)) { alert("Please answer all questions."); return; }
+
+        let correctCount = 0;
+        const correctList = [], incorrectList = [];
+        assessmentItems.forEach((item, i) => {
+          const ans = answers[i], correctId = window.quizCorrectMap[item.id];
+          const correctOpt = item.options.find(o => o.id === correctId);
+          const yourAnswerOpt = item.options.find(o => o.id === ans);
+          if (ans === correctId) {
+            correctCount++;
+            correctList.push({id:item.id, prompt:item.prompt, correctText:correctOpt.text});
+          } else {
+            incorrectList.push({id:item.id, prompt:item.prompt, yourAnswer:yourAnswerOpt?.text||'—', correctAnswer:correctOpt.text});
+          }
+        });
+
+        const score = correctCount, total = assessmentItems.length;
+        const mastery = score >= Math.ceil(total * 0.75);
+        const timeOnTask = Math.floor((Date.now() - window.startTime) / 1000);
+        const attempts = (parseInt(localStorage.getItem(`${PREFIX}quiz_attempts_${currentChapter}`)) || 0) + 1;
+        localStorage.setItem(`${PREFIX}quiz_attempts_${currentChapter}`, attempts);
+        localStorage.setItem(`${PREFIX}mastery_${currentChapter}`, mastery ? '1' : '0');
+
+        let report = `*Mini OpenStax Math: Number Systems*\nStudent: ${userName}\nScore: ${score}/${total} (${Math.round(score/total*100)}%) — ${mastery ? '✅ MASTERED' : '❌ Needs Review'}\nTime: ${timeOnTask}s | Attempts: ${attempts}\n\n`;
+        if (correctList.length) {
+          report += `✅ CORRECT (${correctList.length}):\n`;
+          correctList.forEach(q => report += `${q.id}. ${q.prompt}\n   → ${q.correctText}\n\n`);
+        }
+        if (incorrectList.length) {
+          report += `❌ INCORRECT (${incorrectList.length}):\n`;
+          incorrectList.forEach(q => report += `${q.id}. ${q.prompt}\n   Your: ${q.yourAnswer}\n   Correct: ${q.correctAnswer}\n\n`);
+        }
+        report += `Report generated via Mini OpenStax Math.\n\nCALL OR WHATSAPP @ +233257320201`;
+
+        const timestamp = Date.now();
+        localStorage.setItem(`${PREFIX}saved_report_${currentChapter}_${timestamp}`, report);
+
+        let feedbackHTML = `<div class="feedback"><h3>📊 Results: ${score}/${total}</h3><p><strong>${mastery ? '🎉 Excellent!' : score >= total/2 ? 'Good!' : 'Keep practicing.'}</strong></p>`;
+        if (correctList.length) feedbackHTML += `<details style="margin-top:1rem; background:#e0f0ff; padding:0.8rem; border-radius:6px;"><summary><strong>✅ Correct (${correctList.length})</strong></summary><ul>${correctList.map(q => `<li>${q.id}. ${q.prompt}<br><em>→ ${q.correctText}</em></li>`).join('')}</ul></details>`;
+        if (incorrectList.length) feedbackHTML += `<details open style="margin-top:1rem; background:#ffebee; padding:0.8rem; border-radius:6px;"><summary><strong>❌ Incorrect (${incorrectList.length})</strong></summary><ul>${incorrectList.map(q => `<li>${q.id}. ${q.prompt}<br><em>Your:</em> ${q.yourAnswer}<br><em>Correct:</em> ${q.correctAnswer}</li>`).join('')}</ul></details>`;
+        feedbackHTML += `<a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(report)}" target="_blank" class="btn btn-whatsapp" style="margin-top:1.5rem; display:inline-block;">📲 Send Report</a></div>`;
+        document.getElementById('feedback').innerHTML = feedbackHTML;
+        if (document.querySelector('.tab-btn.active')?.dataset.tab === 'dashboard') { updateDashboard(); loadReports(); }
+      });
+
+      // === LOAD REPORTS ===
+      function loadReports() {
+        const container = document.getElementById('reports-list');
+        if(!container) return;
+        const reports = [];
+        for (const key in localStorage) {
+          if (key.startsWith(`${PREFIX}saved_report_${currentChapter}_`)) {
+            reports.push({ key, content: localStorage.getItem(key), timestamp: parseInt(key.split('_').pop()) || 0 });
+          }
+        }
+        if (reports.length === 0) { container.innerHTML = '<p>No math reports yet.</p>'; return; }
+        reports.sort((a, b) => b.timestamp - a.timestamp);
+        container.innerHTML = reports.map(rep => {
+          const lines = rep.content.split('\n');
+          const student = (lines.find(l => l.startsWith('Student:')) || '').replace('Student: ', '').trim() || 'Unknown';
+          const score = (lines.find(l => l.startsWith('Score:')) || 'Score unknown');
+          const date = new Date(rep.timestamp).toLocaleString();
+          return `<div class="report-card"><div class="report-header"><span>Number Systems</span><span>${date}</span></div><div class="report-meta">${student} • ${score}</div><div class="report-detail" id="detail-${rep.timestamp}"></div><div class="report-actions"><button class="btn" onclick="toggleDetail(${rep.timestamp})">Details</button><button class="btn btn-whatsapp" onclick="sendReport('${rep.key}')">WhatsApp</button></div></div>`;
+        }).join('');
+        window.reportContents = {};
+        reports.forEach(r => window.reportContents[r.timestamp] = r.content);
+      }
+      window.toggleDetail = (ts) => { const el = document.getElementById(`detail-${ts}`); if (el) { el.textContent = el.classList.contains('show') ? '' : (window.reportContents[ts] || ''); el.classList.toggle('show'); } };
+      window.sendReport = (key) => { const content = localStorage.getItem(key); if (content) window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(content)}`, '_blank'); };
+
+      // === DASHBOARD ===
+      function updateDashboard() {
+        const mastered = localStorage.getItem(`${PREFIX}mastery_${currentChapter}`) === '1' ? 1 : 0;
+        document.getElementById('stat-mastered').textContent = mastered;
+        document.getElementById('stat-total').textContent = 1;
+        document.getElementById('stat-percent').textContent = `${mastered * 100}%`;
+        document.getElementById('recent-lessons').innerHTML = `<div class="lesson-item"><div><span class="mastery-indicator ${mastered ? 'mastery-yes' : 'mastery-partial'}"></span>Lesson ${currentChapter + 1}</div><span>${mastered ? 'Mastered' : 'In Progress'}</span></div>`;
+      }
+      document.getElementById('btn-send-all').addEventListener('click', () => {
+        let msg = `*📐 Mini OpenStax — Math Reports*\nStudent: ${userName}\n\n`; let count = 0;
+        for (const key in localStorage) { if (key.startsWith(`${PREFIX}saved_report_${currentChapter}_`)) { msg += `\n---\n${localStorage.getItem(key)}\n`; count++; } }
+        if (count === 0) return alert("No reports to send.");
+        msg += "\n\nCALL OR WHATSAPP @ +233257320201";
+        if (msg.length > 3800) msg = msg.substring(0, 3800) + "\n\n... (truncated)";
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+      });
+
+      // === ANALYTICS ===
+      function loadAnalytics() {
+        const reports = [];
+        for (const key in localStorage) {
+          if (key.startsWith(`${PREFIX}saved_report_${currentChapter}_`)) {
+            const v = localStorage.getItem(key); const m = v.match(/Score: (\d+)\//);
+            if (m) reports.push({ score: parseInt(m[1], 10), mastery: parseInt(m[1], 10) >= 15 });
+          }
+        }
+        if (reports.length === 0) { document.getElementById('analytics-content').innerHTML = '<div class="error">No reports.</div>'; return; }
+        const total = reports.length, mastered = reports.filter(r => r.mastery).length;
+        const avg = (reports.reduce((s, r) => s + r.score, 0) / total).toFixed(1);
+        document.getElementById('analytics-content').innerHTML = `<div class="stat-grid"><div class="stat-item"><div class="stat-value">${total}</div><div>Attempts</div></div><div class="stat-item"><div class="stat-value">${avg}/20</div><div>Avg Score</div></div><div class="stat-item"><div class="stat-value">${((mastered/total)*100).toFixed(1)}%</div><div>Mastery</div></div></div>`;
+      }
+
+      // === TAB SWITCHING ===
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+          btn.classList.add('active');
+          const tab = btn.dataset.tab;
+          document.getElementById(`tab-${tab}`).style.display = 'block';
+          if (tab === 'dashboard') { updateDashboard(); loadReports(); }
+          if (tab === 'analytics') loadAnalytics();
+        });
+      });
+
+      // === CHAPTER NAV ===
+      function updateChapterNavigation() {
+        const tabs = document.getElementById('chapter-tabs');
+        const prev = document.getElementById('prev-btn'); const next = document.getElementById('next-btn');
+        let html = '';
+        for (let i = Math.max(0, currentChapter - 1); i <= Math.min(MAX_CHAPTERS, currentChapter + 2); i++) {
+          html += `<a href="${getChapterUrl(i)}" class="chapter-btn ${i === currentChapter ? 'active' : ''}">L${i+1}</a>`;
+        }
+        tabs.innerHTML = html;
+        if (currentChapter > 0) { prev.style.display = 'inline-block'; prev.onclick = () => window.location.href = getChapterUrl(currentChapter - 1); }
+        else prev.style.display = 'none';
+        if (currentChapter < MAX_CHAPTERS) { next.style.display = 'inline-block'; next.onclick = () => window.location.href = getChapterUrl(currentChapter + 1); }
+        else next.style.display = 'none';
+      }
+
+      // === INIT ===
+      document.getElementById('year').textContent = new Date().getFullYear();
+      renderQuiz(); updateChapterNavigation();
+    })();
+  </script>
+</body>
+</html>
